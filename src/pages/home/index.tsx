@@ -8,6 +8,7 @@ import { useRequest } from 'hooks/useRequest';
 import { store } from 'store/index';
 import { SketchPicker } from 'react-color';
 import { camelCase } from 'lodash-es';
+import ImgBox from 'components/imgLazyLoad/index';
 export interface HelloWorldProps {
     userName?: string;
     lang?: string;
@@ -102,13 +103,32 @@ export default (props: HelloWorldProps) => {
                 测试state
             </button>
             <DatePicker />
-
             <SketchPicker onChangeComplete={handleColorChange} />
             {/* {selectedData.showAlert ? <div>这里验证发送action</div> : null} */}
-            <img src={require('assets/a.jpg')} />
             <Button type={'primary'}>primary</Button>
-
+            <div>
+                <img src={require('assets/a.jpg')} />
+            </div>
+            <div>
+                <img src={require('assets/a.jpg')} />
+            </div>{' '}
+            <div>
+                <img src={require('assets/a.jpg')} />
+            </div>{' '}
+            <div>
+                <img src={require('assets/a.jpg')} />
+            </div>{' '}
+            <div>
+                <img src={require('assets/a.jpg')} />
+            </div>{' '}
+            <div>
+                <img src={require('assets/a.jpg')} />
+            </div>{' '}
+            <div>
+                <img src={require('assets/a.jpg')} />
+            </div>
             <div className={styles.home}>这是home页面</div>
+            <ImgBox />
         </div>
     );
 };

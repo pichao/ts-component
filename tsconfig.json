@@ -22,7 +22,8 @@
             "store": ["/store/*"],
             "entry": ["/entry/*"],
             "hooks": ["/hooks/*"]
-        }
+        },
+        "typeRoots": ["./node_modules/@types", "./@types"]
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules"]

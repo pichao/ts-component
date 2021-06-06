@@ -11,6 +11,7 @@ import 'assets/css/variable.css';
 const Home = lazy(() => import(/* webpackChunkName: 'Home'*/ 'pages/home'));
 const About = lazy(() => import(/* webpackChunkName: 'About'*/ 'pages/about'));
 const Users = lazy(() => import(/* webpackChunkName: 'Users'*/ 'pages/users'));
+const List = lazy(() => import(/* webpackChunkName: 'List'*/ 'pages/list'));
 export interface HelloWorldProps {
     userName: string;
     lang: string;
@@ -22,6 +23,7 @@ export const App = (props) => (
                 <Route exact path="/" component={Home}></Route>
                 <Route path="/about$" component={About}></Route>
                 <Route path="/users$" component={Users}></Route>
+                <Route path="/list$" component={List}></Route>
                 <Redirect to="/"></Redirect>
             </Switch>
         </Router>
