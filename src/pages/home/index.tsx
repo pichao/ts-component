@@ -9,14 +9,15 @@ import { store } from 'store/index';
 import { SketchPicker } from 'react-color';
 import { camelCase } from 'lodash-es';
 import ImgBox from 'components/imgLazyLoad/index';
+import { forceCheck } from 'react-lazyload';
+import homeUrl, { ReactComponent as HomeSvg } from 'assets/images/home2.svg';
 export interface HelloWorldProps {
     userName?: string;
     lang?: string;
 }
 export default (props: HelloWorldProps) => {
-    console.log(process.env, 'dsfgs');
     const { dispatch, state } = useContext(store);
-    console.log(state, 'ooooooooooo');
+
     useEffect(() => {
         dispatch({
             type: 'aaa',
@@ -25,7 +26,7 @@ export default (props: HelloWorldProps) => {
             },
         });
     }, []);
-    console.log(camelCase('Foo Bar'));
+    // console.log(camelCase('Foo Bar'));
     // const selectedData = useSelector((state) => {
     //     console.log(state, 'stateyyyyyyyyyyyyy');
     //     return state;
@@ -76,6 +77,8 @@ export default (props: HelloWorldProps) => {
                         setFormItem('name', e.target.value);
                     }}
                 />
+                <img src={homeUrl} alt="" />
+                <HomeSvg fill={'red'} />
                 <input
                     type="text"
                     value={formData.add}
@@ -107,28 +110,33 @@ export default (props: HelloWorldProps) => {
             {/* {selectedData.showAlert ? <div>这里验证发送action</div> : null} */}
             <Button type={'primary'}>primary</Button>
             <div>
-                <img src={require('assets/a.jpg')} />
+                <img src={require('assets/images/a.jpg')} />
             </div>
             <div>
-                <img src={require('assets/a.jpg')} />
+                <img src={require('assets/images/a.jpg')} />
             </div>{' '}
             <div>
-                <img src={require('assets/a.jpg')} />
+                <img src={require('assets/images/a.jpg')} />
             </div>{' '}
             <div>
-                <img src={require('assets/a.jpg')} />
+                <img src={require('assets/images/a.jpg')} />
             </div>{' '}
             <div>
-                <img src={require('assets/a.jpg')} />
+                <img src={require('assets/images/a.jpg')} />
             </div>{' '}
             <div>
-                <img src={require('assets/a.jpg')} />
+                <img src={require('assets/images/a.jpg')} />
             </div>{' '}
             <div>
-                <img src={require('assets/a.jpg')} />
+                <img src={require('assets/images/a.jpg')} />
             </div>
             <div className={styles.home}>这是home页面</div>
-            <ImgBox />
+            <ImgBox src={'a'} />
+            <ImgBox src={'b'} />
+            <ImgBox src={'c'} />
+            <ImgBox src={'d'} />
+            <ImgBox src={'e'} />
+            <ImgBox src={'f'} />
         </div>
     );
 };

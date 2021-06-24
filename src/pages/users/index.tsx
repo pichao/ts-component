@@ -10,7 +10,7 @@ export default (props: HelloWorldProps) => {
     console.log(props, 'props');
     return (
         <div>
-            <img src={require('assets/a.jpg')} />
+            <img src={require('assets/images/a.jpg')} />
             <div>qqqqqqqq</div>
             <div className={styles.users}>这是users谢谢大V查下页面</div>
         </div>

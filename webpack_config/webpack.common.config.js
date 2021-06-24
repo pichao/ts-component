@@ -11,10 +11,10 @@ const options = {
     stylesDir: path.join(__dirname, '../src/assets/css'),
     varFile: path.join(__dirname, '../src/assets/css/variables.less'),
 
-    themeVariables: ['@primary-color'],
+    // themeVariables: ['@primary-color'],
     indexFileName: '../src/template/index.html',
     generateOnce: false,
-    lessUrl: 'https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js',
+    // lessUrl: 'https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js',
     publicPath: '',
     customColorRegexArray: [], // An array of regex codes to match your custom color variable values so that code can identify that it's a valid color. Make sure your regex does not adds false positives.
 };
@@ -37,6 +37,7 @@ module.exports = (env, argv) => ({
             pages: path.resolve(__dirname, '../src/pages'),
             store: path.resolve(__dirname, '../src/store'),
             hooks: path.resolve(__dirname, '../src/hooks'),
+            config: path.resolve(__dirname, '../src/config'),
         },
     },
     module: {
@@ -87,6 +88,7 @@ module.exports = (env, argv) => ({
             },
             {
                 test: /\.(s[ac]|c)ss$/i,
+                exclude: /(node_modules)/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
@@ -96,6 +98,44 @@ module.exports = (env, argv) => ({
                                 localIdentName: '[path][name]__[local]--[hash:base64:5]',
                             },
                         },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        require('postcss-pxtorem')({
+                                            rootValue: 100,
+                                            unitPrecision: 5,
+                                            propList: ['*'],
+                                            // selectorBlackList: [/^p/],
+                                            selectorBlackList: [],
+                                            replace: true,
+                                            mediaQuery: false,
+                                            minPixelValue: 6,
+                                        }),
+                                    ],
+                                ],
+                            },
+                        },
+                    },
+                    'sass-loader',
+                    // 'post-loader', //添加post-loader加载器
+                ],
+            },
+            {
+                test: /\.(s[ac]|c)ss$/i,
+                include: /(node_modules)/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        // options: {
+                        //     modules: {
+                        //         localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                        //     },
+                        // },
                     },
                     {
                         loader: 'postcss-loader',
@@ -161,6 +201,10 @@ module.exports = (env, argv) => ({
                         },
                     },
                 ],
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack', 'url-loader'],
             },
         ],
     },

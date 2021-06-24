@@ -21,10 +21,10 @@
             "pages": ["/pages/*"],
             "store": ["/store/*"],
             "entry": ["/entry/*"],
-            "hooks": ["/hooks/*"]
-        },
-        "typeRoots": ["./node_modules/@types", "./@types"]
+            "hooks": ["/hooks/*"],
+            "config": ["/config/*"]
+        }
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "@types/**/*"],
     "exclude": ["node_modules"]
 }

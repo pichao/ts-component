@@ -1,9 +1,6 @@
 export const combineReducers = (reducers) => {
     return (state, action) => {
-        console.log(state, 'wwwwwwwwwwww');
         return Object.keys(reducers).reduce((acc, prop) => {
-            console.log(acc, 'qqqqqqqqqqqq');
-
             return {
                 ...acc,
                 ...reducers[prop](state, action),
@@ -11,4 +8,10 @@ export const combineReducers = (reducers) => {
             };
         }, state);
     };
+};
+export const fontSize = (designWidth, rootFontSize) => {
+    const clientWidth = document.documentElement.clientWidth;
+    var newFontSize = rootFontSize * (clientWidth / designWidth);
+    const html = document.getElementsByTagName('html')[0];
+    html.style.fontSize = newFontSize + 'px';
 };

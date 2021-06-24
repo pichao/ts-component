@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { debounce } from 'lodash-es';
 export const useRequest = (params, callback = (data) => {}) => {
+    console.log('执行到这里')
     const [rParams, setRparams] = useState({
         ...params,
     });
@@ -44,5 +45,6 @@ export const useRequest = (params, callback = (data) => {}) => {
     useEffect(() => {
         getData();
     }, [rParams]);
+   
     return [isFetching, res, getData];
 };

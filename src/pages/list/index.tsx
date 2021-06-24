@@ -16,16 +16,16 @@ export default (props) => {
             str += faker.internet.email();
             users.push({
                 name: faker.name.findName(),
-                email: str,
+                email: faker.internet.email(),
             });
         }
 
         return users;
     }
 
-    const users = getUsers(100000);
+    const users = getUsers(5000);
     const [VitualList] = useVitualList({
-        renderItem: ({ index, key, style, parent }) => {
+        renderItem: ({ index }) => {
             return (
                 <div className={styles.listItem}>
                     <div>{users[index].name}</div>
@@ -38,10 +38,13 @@ export default (props) => {
         listData: users,
         height: 400,
         overscanRowCount: 3,
+        // vertical: false,
     });
     return (
         <div className={styles.con}>
-            {VitualList()}
+            {/* {VitualList()} */}
+
+            <VitualList />
             {/* <Vlist /> */}
         </div>
     );
