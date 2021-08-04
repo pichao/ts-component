@@ -1,6 +1,8 @@
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const commenConfigFunc = require('./webpack.common.config.js');
-
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+// 实例化速度分析插件
+const smp = new SpeedMeasurePlugin();
 module.exports = (env, argv) => {
     const commenConfig = commenConfigFunc(env, argv);
     return {

@@ -44,24 +44,25 @@ module.exports = (env, argv) => ({
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                loader: 'ts-loader',
-                options: {
-                    transpileOnly: true,
-                    getCustomTransformers: () => ({
-                        before: [
-                            tsImportPluginFactory({
-                                libraryName: 'antd',
-                                libraryDirectory: 'lib',
-                                style: true,
+
+                use: [
+                    'thread-loader',
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                            getCustomTransformers: () => ({
+                                before: [
+                                    tsImportPluginFactory({
+                                        libraryName: 'antd',
+                                        libraryDirectory: 'lib',
+                                        style: true,
+                                    }),
+                                ],
                             }),
-                        ],
-                    }),
-                },
-            },
-            {
-                enforce: 'pre',
-                test: /\.js$/,
-                loader: 'source-map-loader',
+                        },
+                    },
+                ],
             },
 
             {
@@ -69,6 +70,8 @@ module.exports = (env, argv) => ({
 
                 use: [
                     MiniCssExtractPlugin.loader,
+                    'thread-loader',
+
                     {
                         loader: 'css-loader', // translates CSS into CommonJS
                         options: {
@@ -91,6 +94,7 @@ module.exports = (env, argv) => ({
                 exclude: /(node_modules)/,
                 use: [
                     MiniCssExtractPlugin.loader,
+                    'thread-loader',
                     {
                         loader: 'css-loader',
                         options: {
@@ -128,6 +132,7 @@ module.exports = (env, argv) => ({
                 test: /\.(s[ac]|c)ss$/i,
                 include: /(node_modules)/,
                 use: [
+                    'thread-loader',
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
@@ -167,6 +172,7 @@ module.exports = (env, argv) => ({
             {
                 test: /\.(png|jpg|gif)$/i,
                 use: [
+                    'thread-loader',
                     {
                         loader: 'url-loader',
                         options: {
@@ -204,7 +210,7 @@ module.exports = (env, argv) => ({
             },
             {
                 test: /\.svg$/,
-                use: ['@svgr/webpack', 'url-loader'],
+                use: ['thread-loader', '@svgr/webpack', 'url-loader'],
             },
         ],
     },
