@@ -50,6 +50,7 @@ module.exports = (env, argv) => ({
                     {
                         loader: 'ts-loader',
                         options: {
+                            happyPackMode: true,
                             transpileOnly: true,
                             getCustomTransformers: () => ({
                                 before: [
@@ -94,7 +95,7 @@ module.exports = (env, argv) => ({
                 exclude: /(node_modules)/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'thread-loader',
+                    // 'thread-loader',
                     {
                         loader: 'css-loader',
                         options: {
@@ -132,7 +133,7 @@ module.exports = (env, argv) => ({
                 test: /\.(s[ac]|c)ss$/i,
                 include: /(node_modules)/,
                 use: [
-                    'thread-loader',
+                    // 'thread-loader',
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
@@ -172,7 +173,7 @@ module.exports = (env, argv) => ({
             {
                 test: /\.(png|jpg|gif)$/i,
                 use: [
-                    'thread-loader',
+                    // 'thread-loader',
                     {
                         loader: 'url-loader',
                         options: {
@@ -210,7 +211,7 @@ module.exports = (env, argv) => ({
             },
             {
                 test: /\.svg$/,
-                use: ['thread-loader', '@svgr/webpack', 'url-loader'],
+                use: ['@svgr/webpack', 'url-loader'],
             },
         ],
     },
