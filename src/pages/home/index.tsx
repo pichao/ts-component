@@ -57,7 +57,7 @@ export default (props: HelloWorldProps) => {
             };
         });
     }, []);
-    const [Xtable, getSearchParams, getFormParams] = usetable(options, getData1, ['aaa']);
+    const [Xtable, getTableData, getSearchParams, getFormParams] = usetable(options, getData1, ['aaa']);
     useEffect(() => {
         dispatch({
             type: 'aaa',
@@ -111,18 +111,27 @@ export default (props: HelloWorldProps) => {
             <div>
                 <Button
                     onClick={() => {
-                        console.log(getSearchParams(), 'getSearchParams');
+                        getSearchParams();
                     }}
                 >
                     getSearchParams
                 </Button>
                 <Button
                     onClick={() => {
-                        console.log(getFormParams(), 'getFormParams()');
                         getFormParams();
                     }}
                 >
                     getFormParams
+                </Button>
+                <Button
+                    onClick={() => {
+                        getTableData({
+                            name: 'pitter',
+                            site: 1,
+                        });
+                    }}
+                >
+                    getTableData
                 </Button>
             </div>
             {/* <div>

@@ -11,7 +11,6 @@ const usetable = (options, getData, filter = []) => {
             setSearchParams(form.getFieldsValue());
             setFormParams(form.getFieldsValue());
         }, []);
-
         return (
             <>
                 <Form
@@ -37,7 +36,11 @@ const usetable = (options, getData, filter = []) => {
     }, [options]);
     const getTableData = useCallback(
         async (params) => {
-            const result = await getData(params);
+            const ss = {
+                ...params,
+                ...searchParams,
+            };
+            const result = await getData(ss);
         },
         [getData, searchParams],
     );
@@ -60,6 +63,6 @@ const usetable = (options, getData, filter = []) => {
     const getFormParams = useCallback(() => {
         return formParams;
     }, [formParams]);
-    return [Xtable, getSearchParams, getFormParams];
+    return [Xtable, getTableData, getSearchParams, getFormParams];
 };
 export default usetable;
