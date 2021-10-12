@@ -9,7 +9,7 @@ export default (state = firstState, action) => {
             return {
                 ...action.payload,
             };
-        case 'test_state':
+        case 'aaa':
             return {
                 ...state,
                 ...action.payload,

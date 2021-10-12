@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import styles from './index.scss';
 import { Link } from 'react-router-dom';
 // import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { Button, Checkbox, DatePicker } from 'antd';
 import { useGetformParams } from 'hooks/useGetformParams';
+
 import { useRequest } from 'hooks/useRequest';
 import { store } from 'store/index';
 import { SketchPicker } from 'react-color';
@@ -11,13 +12,52 @@ import { camelCase } from 'lodash-es';
 import ImgBox from 'components/imgLazyLoad/index';
 import { forceCheck } from 'react-lazyload';
 import homeUrl, { ReactComponent as HomeSvg } from 'assets/images/home2.svg';
+import usetable from 'hooks/useTable';
+
 export interface HelloWorldProps {
     userName?: string;
     lang?: string;
 }
 export default (props: HelloWorldProps) => {
     const { dispatch, state } = useContext(store);
-
+    console.log(state, 'cccccccc');
+    const options = useMemo(
+        () => ({
+            searchOptions: [
+                {
+                    type: 'input',
+                    formItemProps: {
+                        name: 'aaa',
+                        initialValue: state.address,
+                    },
+                },
+                {
+                    type: 'input',
+                    formItemProps: {
+                        name: 'bbb',
+                        initialValue: 'bbb',
+                    },
+                },
+                {
+                    type: 'input',
+                    formItemProps: {
+                        name: 'ccc',
+                        initialValue: 'ccc',
+                    },
+                },
+            ],
+        }),
+        [state],
+    );
+    const getData1 = useCallback((params) => {
+        console.log(params, 'params');
+        return new Promise((resolve, reject) => {
+            return {
+                status: 200,
+            };
+        });
+    }, []);
+    const [Xtable, getSearchParams, getFormParams] = usetable(options, getData1, ['aaa']);
     useEffect(() => {
         dispatch({
             type: 'aaa',
@@ -40,16 +80,16 @@ export default (props: HelloWorldProps) => {
         console.log(formData);
     };
 
-    const [isFetching, res, getData] = useRequest(
-        {
-            method: 'get',
-            url: '/api/v2/all',
-        },
-        () => {
-            console.log('请求完成后执行');
-        },
-    );
-    console.log(isFetching, res, 'uuuuuuuuuuuu');
+    // const [isFetching, res, getData] = useRequest(
+    //     {
+    //         method: 'get',
+    //         url: '/api/v2/all',
+    //     },
+    //     () => {
+    //         console.log('请求完成后执行');
+    //     },
+    // );
+    // console.log(isFetching, res, 'uuuuuuuuuuuu');
     const handleColorChange = ({ hex }) => {
         console.log(hex);
         document.body.style.setProperty('--primary-color', hex);
@@ -67,7 +107,25 @@ export default (props: HelloWorldProps) => {
     };
     return (
         <div>
+            <Xtable />
             <div>
+                <Button
+                    onClick={() => {
+                        console.log(getSearchParams(), 'getSearchParams');
+                    }}
+                >
+                    getSearchParams
+                </Button>
+                <Button
+                    onClick={() => {
+                        console.log(getFormParams(), 'getFormParams()');
+                        getFormParams();
+                    }}
+                >
+                    getFormParams
+                </Button>
+            </div>
+            {/* <div>
                 <input
                     type="text"
                     value={formData.name}
@@ -94,7 +152,7 @@ export default (props: HelloWorldProps) => {
             <button onClick={submit}>测试</button>
             <button
                 onClick={() => {
-                    getData();
+                    // getData();
                     dispatch({
                         type: 'test_state',
                         payload: {
@@ -106,9 +164,9 @@ export default (props: HelloWorldProps) => {
                 测试state
             </button>
             <DatePicker />
-            <SketchPicker onChangeComplete={handleColorChange} />
+            <SketchPicker onChangeComplete={handleColorChange} /> */}
             {/* {selectedData.showAlert ? <div>这里验证发送action</div> : null} */}
-            <Button type={'primary'}>primary</Button>
+            {/* <Button type={'primary'}>primary</Button>
             <div>
                 <img src={require('assets/images/a.jpg')} />
             </div>
@@ -136,7 +194,7 @@ export default (props: HelloWorldProps) => {
             <ImgBox src={'c'} />
             <ImgBox src={'d'} />
             <ImgBox src={'e'} />
-            <ImgBox src={'f'} />
+            <ImgBox src={'f'} /> */}
         </div>
     );
 };
